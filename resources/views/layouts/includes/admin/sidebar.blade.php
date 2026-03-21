@@ -16,7 +16,7 @@
        [
          'name' => 'Users',     
          'icon' => 'fa-solid fa-users',
-         'route' => '',
+         'route' => '#',
          'active' => false,
       ],
       [
@@ -31,13 +31,13 @@
             [
                'name' => 'information',
                'icon' => 'fa-solid fa-circle-info',
-               'route' => '',
+               'route' => '#',
                'active' => false,   
             ],
             [
                'name' => 'information',
                'icon' => 'fa-solid fa-circle-info',
-               'route' => '',
+               'route' => '#',
                'active' => false,   
             ],
          ]
