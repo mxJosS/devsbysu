@@ -10,3 +10,6 @@
   .btn-green {
     @apply bg-green-500 text-white hover:bg-green-700;
   }
+  .form-control{
+    @apply border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm;
+  }
