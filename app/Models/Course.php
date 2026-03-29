@@ -15,11 +15,12 @@ class Course extends Model
         'title', 'slug', 'summary', 'description', 'status',
         'image_path', 'video_path', 'welcome_message',
         'goobye_message', 'observation', 'user_id',
-        'level_id', 'category_id', 'price_id',
+        'level_id', 'category_id', 'price_id', 'published_at',
     ];
 
     protected $casts = [
         'status' => CourseStatus::class,
+        'published_at' => 'datetime',
     ];
 
     protected function image(): Attribute

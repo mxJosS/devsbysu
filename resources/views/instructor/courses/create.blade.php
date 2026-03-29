@@ -1,7 +1,7 @@
 <x-instructor-layout>
      <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            Crear nuevo curso 
+            Crear nuevo curso
         </h2>
     </x-slot>
     <x-container class="mt-12" width="4xl">
@@ -25,10 +25,10 @@
                     </x-label>
                     <x-input id="slug"  placeholder="Ej: laravel-desde-cero" class="w-full" name="slug" value="{{old('slug')}}"  />
                 </div>
-                <div class="grid grid-cols-3 gap-4 mb-4">
+                <div class="grid md:grid-cols-3 gap-4 mb-4">
                     <div>
                         <x-label class="mb-1">
-                            Categorías 
+                            Categorías
                         </x-label>
                         <x-select name="category_id">
                             @foreach ($categories as $category)
@@ -36,7 +36,7 @@
                                     @selected(old('category_id') == $category->id)>
                                     {{$category->name}}
                                 </option>
-                                
+
                             @endforeach
                         </x-select>
 
@@ -44,7 +44,7 @@
 
                     <div>
                         <x-label class="mb-1">
-                            Niveles 
+                            Niveles
                         </x-label>
                         <x-select name="level_id">
                             @foreach ($levels as $level)
@@ -52,13 +52,13 @@
                                     @selected(old('level_id') == $level->id)>
                                     {{$level->name}}
                                 </option>
-                                
+
                             @endforeach
                         </x-select>
 
                     </div>
 
-                    
+
                     <div>
                         <x-label class="mb-1">
                             Precio
@@ -72,9 +72,9 @@
                                     @else
                                         {{$price->value}} US$ (nivel {{$loop->index}})
                                     @endif
-                                    
+
                                 </option>
-                                
+
                             @endforeach
                         </x-select>
 
