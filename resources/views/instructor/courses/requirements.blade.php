@@ -5,9 +5,10 @@
         </h2>
     </x-slot>
 
-
+    <x-container class="py-8">
         <x-instructor.course-sidebar :course="$course">
             @livewire('instructor.courses.requirements', ['course' => $course] )
         </x-instructor.course-sidebar>
+    </x-container>
 
 </x-instructor-layout>

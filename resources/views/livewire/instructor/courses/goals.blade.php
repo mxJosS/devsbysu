@@ -50,26 +50,37 @@
     @push('js')
     <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.7/Sortable.min.js"></script>
     <script>
-        const el = document.getElementById('goals');
-        if (el) {
-            Sortable.create(el, {
+        function initGoalsSortable() {
+            const elGoals = document.getElementById('goals');
+            if (!elGoals) {
+                return;
+            }
+
+            if (elGoals.sortableInstance) {
+                elGoals.sortableInstance.destroy();
+            }
+
+            elGoals.sortableInstance = Sortable.create(elGoals, {
                 animation: 200,
                 ghostClass: 'bg-gray-200',
                 handle: '.cursor-move',
                 onEnd: () => {
-
-                    let goalsData = Array.from(el.querySelectorAll('li')).map((li, index) => {
-                        return {
-                            id: li.getAttribute('data-id'),
-                            name: li.querySelector('input').value,
-                            order: index + 1
-                        };
-                    });
+                    const goalsData = Array.from(elGoals.querySelectorAll('li')).map((li, index) => ({
+                        id: li.getAttribute('data-id'),
+                        name: li.querySelector('input').value,
+                        order: index + 1
+                    }));
 
                     @this.reorder(goalsData);
                 }
             });
         }
+
+        document.addEventListener('livewire:load', initGoalsSortable);
+        document.addEventListener('livewire:update', initGoalsSortable);
+
+
+        initGoalsSortable();
 
         function destroyGoal(id) {
             Swal.fire({

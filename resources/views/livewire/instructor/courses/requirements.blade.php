@@ -15,11 +15,12 @@
                                 onClick="destroyRequirement({{ $requirementId }})"
                                 type="button"
                                 class="text-red-400 hover:text-red-600 px-3 py-2 transition-colors duration-200"
+                                title="Eliminar requisito"
                             >
                                 <i class="fa-solid fa-trash-can"></i>
                             </button>
 
-                            <div class="flex items-center px-3 text-gray-400 cursor-move hover:bg-gray-100 transition-colors">
+                            <div class="flex items-center px-3 text-gray-400 cursor-move hover:bg-gray-100 transition-colors" title="Reordenar">
                                 <i class="fa-solid fa-bars text-sm"></i>
                             </div>
                         </div>
@@ -49,24 +50,37 @@
     @push('js')
     <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.7/Sortable.min.js"></script>
     <script>
-        const elRequirements = document.getElementById('requirements-list');
-        if (elRequirements) {
-            Sortable.create(elRequirements, {
+        function initRequirementsSortable() {
+            const elRequirements = document.getElementById('requirements-list');
+            if (!elRequirements) {
+                return;
+            }
+
+            if (elRequirements.sortableInstance) {
+                elRequirements.sortableInstance.destroy();
+            }
+
+            elRequirements.sortableInstance = Sortable.create(elRequirements, {
                 animation: 200,
                 ghostClass: 'bg-gray-200',
                 handle: '.cursor-move',
                 onEnd: () => {
-                    let requirementsData = Array.from(elRequirements.querySelectorAll('li')).map((li, index) => {
-                        return {
-                            id: li.getAttribute('data-id'),
-                            name: li.querySelector('input').value,
-                            order: index + 1
-                        };
-                    });
+                    const requirementsData = Array.from(elRequirements.querySelectorAll('li')).map((li, index) => ({
+                        id: li.getAttribute('data-id'),
+                        name: li.querySelector('input').value,
+                        order: index + 1
+                    }));
+
                     @this.reorder(requirementsData);
                 }
             });
         }
+
+        document.addEventListener('livewire:load', initRequirementsSortable);
+        document.addEventListener('livewire:update', initRequirementsSortable);
+
+        // Ejecutar inicialmente en caso de que el evento livewire:load ya se haya disparado
+        initRequirementsSortable();
 
         function destroyRequirement(id) {
             Swal.fire({
