@@ -17,7 +17,14 @@
             'url' => route('instructor.courses.goals', $course),
             'active' => request()->routeIs('instructor.courses.goals')
         ],
+        [
+            'name' => 'Requisitos del curso',
+            'url' => route('instructor.courses.requirements', $course),
+            'active' => request()->routeIs('instructor.courses.requirements')
+        ],
+
     ];
+
 @endphp
 
 <div class="grid grid-cols-1 lg:grid-cols-5 gap-6 py-8">

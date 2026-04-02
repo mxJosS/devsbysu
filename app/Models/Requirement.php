@@ -4,11 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Observers\GoalObserver;
-use Illuminate\Database\Eloquent\ObservedBy;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
+use App\Observers\RequirementObserver;
 
-#[ObservedBy([GoalObserver::class])]
-class Goal extends Model
+#[ObservedBy([RequirementObserver::class])]
+class Requirement extends Model
 {
     use HasFactory;
 
