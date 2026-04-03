@@ -11,6 +11,10 @@ class ManageSections extends Component
     public Course $course;
     public $name;
     public $sections = [];
+    public $sectionEdit = [
+        'id' => null,
+        'name' => null
+    ];
 
     public function mount(Course $course)
     {
@@ -25,7 +29,6 @@ class ManageSections extends Component
             ->get();
     }
 
-
     public function store()
     {
         $this->validate([
@@ -38,11 +41,45 @@ class ManageSections extends Component
 
         $this->reset('name');
         $this->loadSections();
-    }
 
+        $this->dispatch('swal', [
+            'title' => '¡Sección agregada!',
+            'text' => 'La nueva sección se guardó con éxito.',
+            'icon' => 'success'
+        ]);
+    }
 
     public function render()
     {
         return view('livewire.instructor.courses.manage-sections');
+    }
+
+    public function edit(Section $section)
+    {
+        $this->sectionEdit=[
+            'id' => $section->id,
+            'name' => $section->name
+        ];
+    }
+
+    public function update()
+    {
+        $this->validate([
+            'sectionEdit.name' => 'required'
+        ]);
+
+        Section::find($this->sectionEdit['id'])->update([
+            'name' => $this->sectionEdit['name']
+        ]);
+
+        $this->reset('sectionEdit');
+        $this->loadSections();
+
+
+        $this->dispatch('swal', [
+            'title' => '¡Actualizado!',
+            'text' => 'El nombre de la sección se actualizó correctamente.',
+            'icon' => 'success'
+        ]);
     }
 }

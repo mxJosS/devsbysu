@@ -5,26 +5,50 @@
         @forelse ($sections as $section)
             <li>
                 <div class="bg-gray-100 rounded-lg shadow-lg px-6 py-4">
-                    <div class="md:flex md:items-center">
-                        <h1 class="md:flex-1 truncate">
-                            Sección {{ $section->order }}:
-                            <br class="md:hidden">
-                            <span class="font-semibold">
-                                {{ $section->name }}
-                            </span>
-                        </h1>
-                        <div class="space-x-3 md:shrink-0 md:ml-4">
-                            <button>
-                                <i class="fas fa-edit hover:text-indigo-600"></i>
-                            </button>
-                            <button>
-                                <i class="fas fa-trash-alt text-red-500 hover:text-red-700"></i>
-                            </button>
+                    @if ($sectionEdit['id'] == $section->id)
+                        <form wire:submit="update">
+                            <div class="flex items-center space-x-2">
+                                <x-label>
+                                    Sección {{ $section->position }}
+                                </x-label>
+
+                                <x-input wire:model="sectionEdit.name" class="flex-1"   />
+
+
+
+                            </div>
+                            <div class="flex justify-end mt-4">
+                                <div class="space-x-2">
+                                    <x-button class="ml-2">
+                                        Actualizar
+                                    </x-button>
+                                    <x-danger-button wire:click="$set('sectionEdit.id', null)">
+                                        Cancelar
+                                    </x-danger-button>
+                                </div>
+                            </div>
+                        </form>
+                    @else
+                        <div class="md:flex md:items-center">
+                            <h1 class="md:flex-1 truncate">
+                                Sección {{ $section->order }}:
+                                <br class="md:hidden">
+                                <span class="font-semibold">
+                                    {{ $section->name }}
+                                </span>
+                            </h1>
+                            <div class="space-x-3 md:shrink-0 md:ml-4">
+                                <button wire:click="edit({{ $section->id }})">
+                                    <i class="fas fa-edit hover:text-indigo-600"></i>
+                                </button>
+                                <button>
+                                    <i class="fas fa-trash-alt text-red-500 hover:text-red-700"></i>
+                                </button>
+                            </div>
+
+
                         </div>
-
-
-                    </div>
-
+                    @endif
                 </div>
             </li>
         @empty
