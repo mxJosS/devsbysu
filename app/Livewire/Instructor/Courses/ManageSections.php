@@ -19,6 +19,9 @@ class ManageSections extends Component
     public function mount(Course $course)
     {
         $this->course = $course;
+
+
+
         $this->loadSections();
     }
 
@@ -29,18 +32,29 @@ class ManageSections extends Component
             ->get();
     }
 
-    public function store()
+    public function store($position = null)
     {
         $this->validate([
-            'name'=>'required'
+            'name' => 'required'
         ]);
 
+        if (!$position) {
+            $position = $this->course->sections()->count() + 1;
+        } else {
+            $this->course->sections()
+                ->where('order', '>=', $position)
+                ->increment('order');
+        }
+
         $this->course->sections()->create([
-            'name'=>$this->name
+            'name' => $this->name,
+            'order' => $position
         ]);
 
         $this->reset('name');
         $this->loadSections();
+
+        $this->dispatch('section-added');
 
         $this->dispatch('swal', [
             'title' => '¡Sección agregada!',
@@ -56,7 +70,7 @@ class ManageSections extends Component
 
     public function edit(Section $section)
     {
-        $this->sectionEdit=[
+        $this->sectionEdit = [
             'id' => $section->id,
             'name' => $section->name
         ];
@@ -75,10 +89,21 @@ class ManageSections extends Component
         $this->reset('sectionEdit');
         $this->loadSections();
 
-
         $this->dispatch('swal', [
             'title' => '¡Actualizado!',
             'text' => 'El nombre de la sección se actualizó correctamente.',
+            'icon' => 'success'
+        ]);
+    }
+
+    public function destroy(Section $section)
+    {
+        $section->delete();
+        $this->loadSections();
+
+        $this->dispatch('swal', [
+            'title' => '¡Eliminado!',
+            'text' => 'La sección se eliminó correctamente.',
             'icon' => 'success'
         ]);
     }
