@@ -107,4 +107,13 @@ class ManageSections extends Component
             'icon' => 'success'
         ]);
     }
+
+    public function updateSortOrder($items)
+    {
+        foreach ($items as $index => $id) {
+            Section::where('id', $id)->update(['order' => $index +1]);
+
+        }
+        $this->loadSections();
+    }
 }
