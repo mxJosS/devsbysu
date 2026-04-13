@@ -28,7 +28,7 @@ return new class extends Migration
             $table->boolean('is_preview')->default(0);
             $table->boolean('is_processed')->default(0);
 
-            $table->foreignId('course_id')
+            $table->foreignId('section_id')
                 ->constrained()
                 ->OnDelete('cascade');
 

@@ -28,6 +28,7 @@ class ManageSections extends Component
     public function loadSections()
     {
         $this->sections = Section::where('course_id', $this->course->id)
+            ->with('lessons')
             ->orderBy('order', 'asc')
             ->get();
     }

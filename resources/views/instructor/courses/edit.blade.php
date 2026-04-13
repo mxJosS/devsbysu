@@ -38,16 +38,11 @@
                     <x-label value="Descripción del curso" class="mb-2" />
                     <div wire:ignore x-data="{
                         init() {
-                            // Limpiamos la basura del caché de Livewire
                             let oldUI = this.$el.querySelector('.ck-editor');
                             if (oldUI) {
                                 oldUI.remove();
                             }
-
-                            // Mostramos el textarea base
                             this.$refs.myEditor.style.display = 'block';
-
-                            // Inicializamos un editor completamente nuevo
                             ClassicEditor.create(this.$refs.myEditor)
                                 .catch(error => console.error('Error CKEditor:', error));
                         }
@@ -140,14 +135,17 @@
         }
     </script>
 
-    @if (session('info'))
-        <script>
+   @if (session('info'))
+    <script>
+        window.onload = function() {
             Swal.fire({
                 title: '¡Operación exitosa!',
                 text: "{{ session('info') }}",
                 icon: 'success',
                 confirmButtonColor: '#4F46E5',
+
             });
-        </script>
-    @endif
+        };
+    </script>
+@endif
 </x-instructor-layout>

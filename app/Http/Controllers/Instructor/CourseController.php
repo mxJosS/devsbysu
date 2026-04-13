@@ -90,7 +90,8 @@ class CourseController extends Controller
 
         }
         $course->update($data);
-        return redirect()->route('instructor.courses.edit', $course)->with('info', 'Curso actualizado correctamente');
+        $request->session()->flash('info', 'La información del curso se actualizó correctamente.');
+        return redirect()->route('instructor.courses.edit', $course);
     }
 
     /**
