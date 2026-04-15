@@ -37,20 +37,17 @@
 
 <table>
   <tr>
-    <td width="50%" valign="top">
+    <td width="60%" valign="top">
       <h4>Backend</h4>
-      <ul>
-        <li>Laravel</li>
-        <li>PHP 8.2</li>
-        <li>MySQL Database</li>
-      </ul>
+      <p>
+        <img src="https://skillicons.dev/icons?i=php,laravel,mysql" height="45" alt="Backend Stack" />
+      </p>
     </td>
-    <td width="50%" valign="top">
+    <td width="60%" valign="top">
       <h4>Frontend</h4>
-      <ul>
-        <li>Tailwind CSS</li>
-        <li>Flowbite</li>
-      </ul>
+      <p>
+        <img src="https://skillicons.dev/icons?i=tailwind" height="45" alt="Frontend" />
+      </p>
     </td>
   </tr>
 </table>
